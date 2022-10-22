@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Titulo</title>
+</head>
+<body>
+
+<div th:if="${mostrarLista}">
+    <ul th:each="obj : ${att}">
+        <li th:text="${obj.toString()}"></li>
+    </ul>
+</div>
+</body>
+</html>
