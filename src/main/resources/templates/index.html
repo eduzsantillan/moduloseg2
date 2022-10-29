@@ -6,10 +6,8 @@
 </head>
 <body>
 
-<div th:if="${mostrarLista}">
-    <ul th:each="obj : ${att}">
-        <li th:text="${obj.toString()}"></li>
-    </ul>
+<div>
+    <a th:href="@{user/create}"> Crear usuario </a>
 </div>
 </body>
 </html>

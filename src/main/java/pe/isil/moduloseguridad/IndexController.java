@@ -14,7 +14,7 @@ public class IndexController {
 
     @GetMapping(value = {"/","/index","/login"})
     public String index(Model model){
-        return "login";
+        return "index";
     }
 
 
