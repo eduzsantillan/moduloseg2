@@ -8,5 +8,8 @@ public interface UserService {
     void updateUser(User user, Long id);
     void deleteUser(Long id);
     User getUserByMail(String mail);
+
+    User getUserById(Long id);
+
     List<User> getAllUsers();
 }

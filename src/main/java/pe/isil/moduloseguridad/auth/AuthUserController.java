@@ -32,11 +32,8 @@ public class AuthUserController {
     public String login(@ModelAttribute AuthUser user, Model model){
 
         AuthDTO result = authService.login(user.getEmail(), user.getPassword());
-
         model.addAttribute("resp",result);
-
-
-        return "index";
+        return "redirect:/user/";
     }
 
     @PostMapping("/auth/register")

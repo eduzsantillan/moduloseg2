@@ -8,19 +8,37 @@
 </head>
 
 <div class="container">
+
+  <br>
+
   <table class="table">
     <thead class="thead-dark">
-      <tr>
+      <tr class="table-dark">
         <th scope="col">Nombre</th>
         <th scope="col">Apellido</th>
         <th scope="col">Correo</th>
+        <th scope="col">Foto</th>
+        <th scope="col">Opciones</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="table-group-divider">
       <tr th:each="user : ${users}">
         <td th:text="${user.name}"></td>
         <td th:text="${user.lastName}"></td>
         <td th:text="${user.email}"></td>
+        <td th:text="${user.urlPhoto}"></td>
+        <td>
+          <div class="row">
+            <div class="col-2">
+              <a th:href="@{/user/update(id=${user.id})}"  class="btn btn-primary" >Editar</a>
+            </div>
+            <div class="col-2">
+              <form action="#" th:action="@{/user/delete(id=${user.id})}" th:method="delete" >
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+              </form>
+            </div>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>
