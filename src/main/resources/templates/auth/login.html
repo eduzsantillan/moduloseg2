@@ -10,6 +10,12 @@
 
     <br>
     <div class="container">
+
+        <div th:if="${resp!=null}" class="alert alert-danger" role="alert" >
+            <span  th:text="${resp.message}"></span>
+        </div>
+
+        <br>
         <form th:action="@{/login}" method="post" th:object="${user}">
             <div class="form-outline mb-4">
                 <label class="form-label" for="email">Email:</label>

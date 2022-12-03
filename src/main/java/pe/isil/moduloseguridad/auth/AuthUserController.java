@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pe.isil.moduloseguridad.shared.BasicRespone;
 
 @Controller
 @RequestMapping("")
@@ -31,14 +32,20 @@ public class AuthUserController {
     @PostMapping("/login")
     public String login(@ModelAttribute AuthUser user, Model model){
 
-        AuthDTO result = authService.login(user.getEmail(), user.getPassword());
-        model.addAttribute("resp",result);
-        return "redirect:/user/";
+        BasicRespone result = authService.login(user.getEmail(), user.getPassword());
+
+        if(result.getCode().equals("200")){
+            return "redirect:/user/";
+        }else{
+            model.addAttribute("resp",result);
+            return "auth/login";
+        }
+
     }
 
     @PostMapping("/auth/register")
     public String register(@ModelAttribute AuthUser user, Model model){
-        AuthDTO result = authService.register(user);
+        BasicRespone result = authService.register(user);
         if(result.getCode().equals("200")){
             return "redirect:/login";
         }else{

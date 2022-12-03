@@ -2,6 +2,7 @@ package pe.isil.moduloseguridad.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pe.isil.moduloseguridad.shared.BasicRespone;
 
 import java.util.Optional;
 
@@ -13,38 +14,38 @@ public class AuthServiceImpl implements AuthService{
 
 
     @Override
-    public AuthDTO login(String email, String password) {
+    public BasicRespone login(String email, String password) {
         try{
             Optional<AuthUser> userToFind = authUserRepository
                     .findAuthUserByEmailAndPassword(email,password);
             if(userToFind.isPresent()){
                 if(userToFind.get().getIsActived()){
-                    return AuthDTO.buildWhenLoginOk(userToFind.get());
+                    return BasicRespone.buildWhenLoginOk(userToFind.get());
                 }else{
-                    return AuthDTO.buildWhenIsInactive();
+                    return BasicRespone.buildWhenIsInactive();
                 }
             }else{
-                return AuthDTO.buildWhenEmailPasswordIncorrect();
+                return BasicRespone.buildWhenEmailPasswordIncorrect();
             }
         }catch (Exception e){
-            return AuthDTO.buildWhenError(e.getMessage());
+            return BasicRespone.buildWhenError(e.getMessage());
         }
     }
 
     @Override
-    public AuthDTO register(AuthUser authUser) {
+    public BasicRespone register(AuthUser authUser) {
         try{
             Optional<AuthUser> authUserToFind = authUserRepository
                     .findAuthUserByEmail(authUser.getEmail());
             if(authUserToFind.isPresent()){
-                return AuthDTO.buildWhenEmailIsTaken();
+                return BasicRespone.buildWhenEmailIsTaken();
             }else{
 
                 authUserRepository.save(authUser);
-                return AuthDTO.buildWhenRegisterSucceed();
+                return BasicRespone.buildWhenRegisterSucceed();
             }
         }catch(Exception e){
-            return AuthDTO.buildWhenError(e.getMessage());
+            return BasicRespone.buildWhenError(e.getMessage());
         }
     }
 }

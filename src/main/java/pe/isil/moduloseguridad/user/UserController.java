@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pe.isil.moduloseguridad.shared.BasicRespone;
 
 import java.util.List;
 
@@ -33,23 +34,14 @@ public class UserController {
 
     @PostMapping ("/create")
     public String createUser(Model model, User user){
-        try{
-            userService.createUser(user);
-            Response response = Response.builder()
-                    .code("200")
-                    .message("Usuario creado correctamente")
-                    .build();
 
+        BasicRespone response = userService.createUser(user);
+        if(response.getCode().equals("200")){
+            return "redirect:/user/";
+        }else{
             model.addAttribute("resp",response);
-        }catch (Exception e){
-            Response response = Response.builder()
-                    .code("500")
-                    .message("Error al crear usuario ".concat(e.getMessage()))
-                    .build();
-            model.addAttribute("resp",response);
+            return "./response";
         }
-
-        return "redirect:/user/";
     }
 
     @GetMapping("/update")
@@ -61,8 +53,14 @@ public class UserController {
 
     @PostMapping("/update")
     public String updateUser(User userToUpdate, Model model){
-        userService.updateUser(userToUpdate,userToUpdate.getId());
-        return "redirect:/user/";
+
+        BasicRespone response = userService.updateUser(userToUpdate,userToUpdate.getId());
+        if(response.getCode().equals("200")){
+            return "redirect:/user/";
+        }else{
+            model.addAttribute("resp",response);
+            return "./response";
+        }
     }
 
 

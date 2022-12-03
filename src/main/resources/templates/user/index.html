@@ -26,13 +26,16 @@
         <td th:text="${user.name}"></td>
         <td th:text="${user.lastName}"></td>
         <td th:text="${user.email}"></td>
-        <td th:text="${user.urlPhoto}"></td>
+        <td>
+          <img th:src="${user.urlPhoto}" width="75" height="75">
+        </td>
+
         <td>
           <div class="row">
-            <div class="col-2">
+            <div class="col-3">
               <a th:href="@{/user/update(id=${user.id})}"  class="btn btn-primary" >Editar</a>
             </div>
-            <div class="col-2">
+            <div class="col-3">
               <form action="#" th:action="@{/user/delete(id=${user.id})}" th:method="delete" >
                 <button type="submit" class="btn btn-danger">Eliminar</button>
               </form>
